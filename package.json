@@ -1,6 +1,6 @@
 {
   "name": "@localnerve/gulp-images",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Reusable gulp image processing transforms: optimize (svg, jpeg, png), responsive, and transform (toWebp).",
   "type": "module",
   "scripts": {
@@ -29,6 +29,14 @@
     "png",
     "wasm"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/localnerve/gulp-images.git"
+  },
+  "bugs": {
+    "url": "https://github.com/localnerve/gulp-images/issues"
+  },
+  "homepage": "https://github.com/localnerve/gulp-images/tree/main#readme",
   "author": "Alex Grant <info@localnerve.com> (https://www.localnerve.com)",
   "license": "AGPL-3.0-or-later",
   "peerDependencies": {
