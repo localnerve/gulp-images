@@ -1,0 +1,56 @@
+{
+  "name": "@localnerve/gulp-images",
+  "version": "0.1.0",
+  "description": "Reusable gulp image processing transforms: optimize (svg, jpeg, png), responsive, and transform (toWebp).",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint src/ test/",
+    "test": "node --test --experimental-test-coverage test/*.test.js",
+    "test:fixture:generate": "node test/fixtures/generate.js",
+    "check": "npm run lint && npm run test"
+  },
+  "exports": {
+    ".": "./src/index.js",
+    "./optimize": "./src/optimize/index.js",
+    "./responsive": "./src/responsive/index.js",
+    "./transform": "./src/transform/index.js"
+  },
+  "files": [
+    "src"
+  ],
+  "keywords": [
+    "gulp",
+    "images",
+    "optimize",
+    "responsive",
+    "webp",
+    "svg",
+    "jpeg",
+    "png",
+    "wasm"
+  ],
+  "author": "Alex Grant <info@localnerve.com> (https://www.localnerve.com)",
+  "license": "AGPL-3.0-or-later",
+  "peerDependencies": {
+    "gulp": ">=5.0.0"
+  },
+  "dependencies": {
+    "@jsquash/jpeg": "^1.4.0",
+    "@jsquash/oxipng": "^2.2.0",
+    "@jsquash/png": "^3.1.0",
+    "@jsquash/webp": "^1.5.0",
+    "@localnerve/gulp-responsive": ">=1.0.0",
+    "plugin-error": "^2.0.1",
+    "svgo": "^3.3.2",
+    "wasm-feature-detect": "^1.8.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.0.3",
+    "gulp": "^5.0.1",
+    "vinyl": "^3.0.1"
+  }
+}
