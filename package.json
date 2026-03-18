@@ -1,6 +1,6 @@
 {
   "name": "@localnerve/gulp-images",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Reusable gulp image processing transforms: optimize (svg, jpeg, png), responsive, and transform (toWebp).",
   "type": "module",
   "scripts": {
