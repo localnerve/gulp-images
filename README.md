@@ -1,5 +1,7 @@
 # @localnerve/gulp-images
 
+> Portable (wasm & sharp), minimal dependency, streaming image processing for javascript builds. Optionally outputs image processing metadata to allow the images themselves to drive css generation and/or other work.
+
 Reusable Gulp image-processing transforms extracted from [jam-build](https://github.com/localnerve/jam-build).
 
 Three functional groups — **optimize**, **responsive**, and **transform** — each independently importable and easily extensible.
@@ -100,6 +102,8 @@ const myOptimize = { ...optimize, avif: myAvifOptimizer };
 | Export | Description |
 |--------|-------------|
 | `responsive(settings, output?)` | Generates responsive image variants via [`@localnerve/gulp-responsive`](https://github.com/localnerve/gulp-responsive). |
+
+`settings` - The @localnerve/gulp-responsive config defined in the [full configuration details](https://github.com/localnerve/gulp-responsive/blob/public-package/README.md#config).
 
 `output` (optional) — if supplied, variant metadata is written as:
 ```js
