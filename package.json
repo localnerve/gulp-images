@@ -1,6 +1,6 @@
 {
   "name": "@localnerve/gulp-images",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Reusable gulp image processing transforms: optimize (svg, jpeg, png), responsive, and transform (toWebp).",
   "type": "module",
   "scripts": {
@@ -43,13 +43,13 @@
     "gulp": ">=5.0.0"
   },
   "dependencies": {
-    "@jsquash/jpeg": "^1.4.0",
-    "@jsquash/oxipng": "^2.2.0",
-    "@jsquash/png": "^3.1.0",
+    "@jsquash/jpeg": "^1.6.0",
+    "@jsquash/oxipng": "^2.3.0",
+    "@jsquash/png": "^3.1.1",
     "@jsquash/webp": "^1.5.0",
-    "@localnerve/gulp-responsive": ">=1.0.0",
+    "@localnerve/gulp-responsive": ">=7.7.0",
     "plugin-error": "^2.0.1",
-    "svgo": "^3.3.2",
+    "svgo": "^4.0.1",
     "wasm-feature-detect": "^1.8.0"
   },
   "engines": {
@@ -57,7 +57,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "eslint": "^10.0.3",
+    "eslint": "^10.1.0",
     "gulp": "^5.0.1",
     "vinyl": "^3.0.1"
   }
