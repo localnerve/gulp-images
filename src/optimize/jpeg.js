@@ -31,10 +31,13 @@ export function jpeg (settings) {
         if (checkSkip(file, ['.jpg', '.jpeg'])) { return next(null, file); }
         if (file.isBuffer()) {
           try {
+            const originalLen = file.contents.length;
             const imageData = await decodeJpeg(file.contents);
             file.contents = Buffer.from(await encodeJpeg(imageData, mozjpegOptions));
+            const optimizedLen = file.contents.length;
+            const reductionPerc = (((originalLen - optimizedLen) / originalLen) * 100).toFixed(2);
 
-            log(pluginName, file, `${file.extname.slice(1)} optimized`);
+            log(pluginName, file, `${file.extname.slice(1)} optimized (${reductionPerc}%)`);
             next(null, file);
           } catch (error) {
             handleError(pluginName, file, next, error);
