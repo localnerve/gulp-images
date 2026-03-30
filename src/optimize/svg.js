@@ -29,13 +29,16 @@ export function svg (settings) {
         if (checkSkip(file, ['.svg'])) { return next(null, file); }
         if (file.isBuffer()) {
           try {
+            const originalLen = file.contents.length;
             const result = await svgOptimize(file.contents.toString('utf8'), {
               ...svgoOptions,
               path: file.path
             });
             file.contents = Buffer.from(result.data);
+            const optimizedLen = file.contents.length;
+            const reductionPerc = (((originalLen - optimizedLen) / originalLen) * 100).toFixed(2);
 
-            log(pluginName, file, 'svg optimized');
+            log(pluginName, file, `svg optimized (${reductionPerc}%)`);
             next(null, file);
           } catch (error) {
             handleError(pluginName, file, next, error);
