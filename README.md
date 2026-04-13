@@ -52,9 +52,13 @@ const settings = {
 const output = {}; // optional — receives image metadata from responsive + toWebp
 
 gulp.series(
-  function optimizeAndResponsive () {
+  function createResponsiveImages () {
     return gulp.src('dist/images/**', { encoding: false })
       .pipe(responsive.responsive(settings, output))
+      .pipe(gulp.dest('dist/images'));
+  }
+  function optimizeImages () {
+    return gulp.src('dist/images/**', { encoding: false })
       .pipe(optimize.svg(settings))
       .pipe(optimize.jpeg(settings))
       .pipe(optimize.png(settings))

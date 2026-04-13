@@ -1,6 +1,6 @@
 {
   "name": "@localnerve/gulp-images",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Reusable gulp image processing transforms: optimize (svg, jpeg, png), responsive, and transform (toWebp).",
   "type": "module",
   "scripts": {
@@ -57,7 +57,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "eslint": "^10.1.0",
+    "eslint": "^10.2.0",
     "gulp": "^5.0.1",
     "vinyl": "^3.0.1"
   }
