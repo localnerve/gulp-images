@@ -10,9 +10,9 @@
  *   import { initWasmModules, optimize, responsive, transform } from '@localnerve/gulp-images';
  *
  * Or import individual groups directly:
- *   import { svg, jpeg, png } from '@localnerve/gulp-images/optimize';
- *   import { responsive }     from '@localnerve/gulp-images/responsive';
- *   import { toWebp }         from '@localnerve/gulp-images/transform';
+ *   import { svg, jpeg, png, avif, webp, jxl } from '@localnerve/gulp-images/optimize';
+ *   import { responsive }                      from '@localnerve/gulp-images/responsive';
+ *   import { toWebp, toAvif, toJxl }           from '@localnerve/gulp-images/transform';
  */
 export * as optimize    from './optimize/index.js';
 export * as responsive  from './responsive/index.js';
