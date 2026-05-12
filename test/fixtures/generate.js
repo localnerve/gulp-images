@@ -17,6 +17,7 @@ import sharp from '/Users/agrant/projects/gulp-images/node_modules/sharp/lib/ind
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import encodeJxl, { init as initJxlEncode } from '@jsquash/jxl/encode.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(__dirname, 'img');
@@ -53,6 +54,40 @@ async function makeImage(width, height, label) {
   return sharp(Buffer.from(svgSrc));
 }
 
+async function generateUnoptimizedJxl() {
+  const width = 512;
+  const height = 512;
+
+  // 1. Generate high-entropy raw data (RGBA)
+  const data = new Uint8ClampedArray(width * height * 4);
+  for (let i = 0; i < data.length; i += 4) {
+    data[i]     = Math.floor(Math.random() * 256); // R
+    data[i + 1] = Math.floor(Math.random() * 256); // G
+    data[i + 2] = Math.floor(Math.random() * 256); // B
+    data[i + 3] = 255;                             // Alpha
+  }
+
+  const imageData = { data, width, height };
+
+  // Initialize jxl encoder for node usage:
+  const jxlPath = path.join(process.cwd(), 'node_modules/@jsquash/jxl/codec/enc/jxl_enc.wasm');
+  const jxlEncWasmModule = await WebAssembly.compile(await fs.readFile(jxlPath));
+  await initJxlEncode(jxlEncWasmModule);
+
+  // effort: 1 = fastest/least efficient encoding
+  const jxlBuffer = await encodeJxl(imageData, {
+    quality: 90,
+    effort: 1,
+    progressive: false
+  });
+
+  try {
+    await fs.writeFile(path.join(OUT, 'sample.jxl'), Buffer.from(jxlBuffer));
+  } catch (err) {
+    console.error('Error writing sample.jxl:', err);
+  }
+}
+
 // ── JPEG fixtures ─────────────────────────────────────────────────────────────
 const jpeg200 = await makeImage(200, 200, 'JPEG');
 await jpeg200.jpeg({ quality: 92 }).toFile(path.join(OUT, 'sample.jpg'));
@@ -70,5 +105,24 @@ console.log('✔ sample.png');
 const png800 = await makeImage(800, 600, 'PNG 800');
 await png800.png({ compressionLevel: 1 }).toFile(path.join(OUT, 'hero-main-800.png'));
 console.log('✔ hero-main-800.png');
+
+// ── Avif fixtures ──────────────────────────────────────────────────────────────
+const avif200 = await makeImage(200, 200, 'AVIF');
+await avif200.avif({
+  quality: 50,
+  speed: 10,                  // Slow speed = less optimization, 10 is max to create bigger file
+  effort: 0,                  // Lowest CPU effort for optimization
+  chromaSubsampling: '4:4:4'  // No color compression
+}).toFile(path.join(OUT, 'sample.avif'));
+console.log('✔ sample.avif');
+
+// ── Webp fixtures ──────────────────────────────────────────────────────────────
+const webp200 = await makeImage(200, 200, 'WEBP');
+await webp200.webp({ quality: 90, lossless: false }).toFile(path.join(OUT, 'sample.webp'));
+console.log('✔ sample.webp');
+
+// ── Jpeg-xl fixtures ──────────────────────────────────────────────────────────────
+await generateUnoptimizedJxl();
+console.log('✔ sample.jxl');
 
 console.log('\nAll fixtures written to', OUT);

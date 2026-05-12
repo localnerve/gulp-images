@@ -92,6 +92,44 @@ describe('transform/toWebp', () => {
     });
   });
 
+  // ── AVIF → WebP ─────────────────────────────────────────────────────────────
+  describe('converting a AVIF file', () => {
+    let result;
+
+    before(async () => {
+      const file = await vinylFile('sample.avif');
+      const transform = toWebp({ webpOptions: { quality: 75, lossless: 0 } });
+      result = await pipeFile(transform, file);
+    });
+
+    it('returns a file with .webp extension', () => {
+      assert.equal(result.extname, '.webp');
+    });
+
+    it('output contains valid WebP magic bytes', () => {
+      assert.ok(isWebP(result.contents), 'output should start with RIFF....WEBP');
+    });
+  });
+
+  // ── JXL → WebP ─────────────────────────────────────────────────────────────
+  describe('converting a JXL file', () => {
+    let result;
+
+    before(async () => {
+      const file = await vinylFile('sample.jxl');
+      const transform = toWebp({ webpOptions: { quality: 75, lossless: 0 } });
+      result = await pipeFile(transform, file);
+    });
+
+    it('returns a file with .webp extension', () => {
+      assert.equal(result.extname, '.webp');
+    });
+
+    it('output contains valid WebP magic bytes', () => {
+      assert.ok(isWebP(result.contents), 'output should start with RIFF....WEBP');
+    });
+  });
+
   // ── output metadata ────────────────────────────────────────────────────────
   describe('output metadata update', () => {
     // File uses the key-sub-width naming convention: hero-main-800.jpg

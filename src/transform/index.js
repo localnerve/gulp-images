@@ -4,9 +4,8 @@
  * Copyright (c) 2025 Alex Grant <info@localnerve.com> (https://www.localnerve.com), LocalNerve LLC
  * AGPL-3.0-or-later
  *
- * Exports the built-in image transforms. Callers can extend this group by spreading:
- *
- *   import * as transform from '@localnerve/gulp-images/transform';
- *   const myTransform = { ...transform, toAvif: myAvifFn };
+ * Exports the built-in image transforms.
  */
+export { toAvif } from './toAvif.js';
+export { toJxl } from './toJxl.js';
 export { toWebp } from './toWebp.js';

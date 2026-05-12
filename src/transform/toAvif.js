@@ -1,5 +1,5 @@
 /**
- * @localnerve/gulp-images — transform/toWebp
+ * @localnerve/gulp-images — transform/toAvif
  *
  * Copyright (c) 2025 Alex Grant <info@localnerve.com> (https://www.localnerve.com), LocalNerve LLC
  * AGPL-3.0-or-later
@@ -10,34 +10,34 @@ import {
   decodeJpeg,
   decodePng,
   decodeJxl,
-  decodeAvif,
-  encodeWebp,
+  decodeWebp,
+  encodeAvif,
   checkSkip, log, handleError } from '../utils.js';
 
-const pluginName = '@localnerve/to-webp';
+const pluginName = '@localnerve/to-avif';
 
 /**
- * Gulp Transform that converts raster images to WebP.
+ * Gulp Transform that converts raster images to Avif.
  *
- * Converted files have their extension replaced with `.webp`.  When the
+ * Converted files have their extension replaced with `.avif`.  When the
  * filename follows the `<key>-<sub>-<width>` naming convention used by
  * gulp-responsive output AND `output` is provided, the transform also
  * updates `output[key][width]` with the new basename and mimeType—mirroring
  * the `data.images` updates in the original implementation.
  *
- * webp encoder options reference:
- * https://github.com/jamsinclair/jSquash/blob/main/packages/webp/meta.ts
+ * Avif encoder options reference:
+ * https://github.com/jamsinclair/jSquash/blob/main/packages/avif/meta.ts
  *
  * @param {Object} settings - Build settings
- * @param {Object} [settings.webpOptions] - Options forwarded to the WebP encoder
+ * @param {Object} [settings.avifOptions] - Options forwarded to the avif encoder
  * @param {Object} [output] - Optional object to receive updated image metadata
  *   (same shape written by `responsive`): output[key][width] = { basename, mimeType }
  * @returns {Transform} A Node.js Transform stream in object mode
  */
-export function toWebp(settings, output) {
-  const { webpOptions } = settings;
-  const exts = ['.jpg', '.jpeg', '.png', '.avif', '.jxl'];
-  const decoders = [decodeJpeg, decodeJpeg, decodePng, decodeAvif, decodeJxl];
+export function toAvif(settings, output) {
+  const { avifOptions } = settings;
+  const exts = ['.jpg', '.jpeg', '.png', '.webp', '.jxl'];
+  const decoders = [decodeJpeg, decodeJpeg, decodePng, decodeWebp, decodeJxl];
 
   return new Transform({
     objectMode: true,
@@ -59,10 +59,10 @@ export function toWebp(settings, output) {
           const width = nameParts.slice(2, 3)[0];
 
           const imageData = await decoders[decoderIndex](file.contents);
-          file.contents = Buffer.from(await encodeWebp(imageData, webpOptions));
+          file.contents = Buffer.from(await encodeAvif(imageData, avifOptions));
 
           for (const ext of exts) {
-            file.path = file.path.replace(ext, '.webp');
+            file.path = file.path.replace(ext, '.avif');
 
             if (originalFile !== file.path) {
               // update caller-supplied output metadata if provided
@@ -70,7 +70,7 @@ export function toWebp(settings, output) {
                 const val = output?.[key]?.[width];
                 if (val) {
                   val.basename = file.basename;
-                  val.mimeType = 'image/webp';
+                  val.mimeType = 'image/avif';
                 }
               }
               break; // a file won't be both .jpg and .jpeg
@@ -81,7 +81,7 @@ export function toWebp(settings, output) {
             file.stat.atime = file.stat.mtime = file.stat.ctime = new Date();
           }
 
-          log(pluginName, file, `${originalExt.slice(1)} converted to webp`);
+          log(pluginName, file, `${originalExt.slice(1)} converted to avif`);
           next(null, file);
         } catch (error) {
           handleError(pluginName, file, next, error);
