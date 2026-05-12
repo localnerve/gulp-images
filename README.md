@@ -90,7 +90,7 @@ gulp.series(
 | `png(settings)` | Optimizes PNGs via oxipng ([`@jsquash/oxipng`](https://github.com/jamsinclair/jSquash)). No-op unless `settings.prod === true`. |
 | `avif(settings)` | Optimizes AVIFs via libavif ([`@jsquash/avif`](https://github.com/jamsinclair/jSquash)). No-op unless `settings.prod === true`. |
 | `jxl(settings)` | Optimizes JXLs via libjxl ([`@jsquash/jxl`](https://github.com/jamsinclair/jSquash)). No-op unless `settings.prod === true`. |
-| `webp(settings)` | Optimizes WEBPs via libavif ([`@jsquash/webp`](https://github.com/jamsinclair/jSquash)). No-op unless `settings.prod === true`. |
+| `webp(settings)` | Optimizes WEBPs via libwebp ([`@jsquash/webp`](https://github.com/jamsinclair/jSquash)). No-op unless `settings.prod === true`. |
 
 **`settings` keys used by optimize:**
 
