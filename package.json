@@ -1,6 +1,6 @@
 {
   "name": "@localnerve/gulp-images",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "description": "Reusable gulp image processing transforms: optimize (svg, jpeg, png, avif, jxl), responsive, and transform (toWebp, toAvif, toJxl).",
   "type": "module",
   "scripts": {
@@ -51,14 +51,14 @@
     "@jsquash/oxipng": "^2.3.0",
     "@jsquash/png": "^3.1.1",
     "@jsquash/webp": "^1.5.0",
-    "@localnerve/gulp-responsive": "^7.9.2",
+    "@localnerve/gulp-responsive": "^8.0.0",
     "plugin-error": "^2.0.1",
-    "svgo": "^4.0.1",
+    "svgo": "^4.0.2",
     "wasm-feature-detect": "^1.8.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "eslint": "^10.6.0",
+    "eslint": "^10.8.0",
     "gulp": "^5.0.1",
     "vinyl": "^3.0.1"
   },
