@@ -14,7 +14,7 @@ Three functional groups — **optimize**, **responsive**, and **transform** — 
 npm install @localnerve/gulp-images
 ```
 
-Requires `gulp` as a peer dependency.
+Can work with `gulp`, [`node-build-stream`](https://www.npmjs.com/package/node-build-stream) the node native task runner, or vanilla with your own stream transforms.
 
 ---
 
